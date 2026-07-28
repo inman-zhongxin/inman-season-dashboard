@@ -464,7 +464,7 @@ function renderWeeklyChart(){
   });
   var weeks=globalWeeks.slice(), bw=12,g=1,pl=50,pt=30,pb=50,ch=320,ph=ch-pt-pb;
   var cw=weeks.length*(bw*2+g)+60;
-  var svg='<svg width="'+(cw+pl+20)+'" height="'+(ch+pb+10)+'" xmlns="http://www.w3.org/2000/svg" font-family="'+PRIMARY.replace(/#/g,'%23')+'">';
+  var svg='<svg width="'+(cw+pl+20)+'" height="'+(ch+pb+10)+'" xmlns="http://www.w3.org/2000/svg">';
   svg+='<style>.ax{font-size:10px;fill:#6b7c93;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}.tt{font-size:13px;fill:#5BA7A4;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-weight:600}</style>';
   svg+='<rect width="100%" height="100%" fill="#fff"/>';
   svg+='<text x="'+(pl+cw/2)+'" y="17" text-anchor="middle" class="tt">'+store+' &middot; 周度各季节销售占比 (左=2025浅, 右=2026深)</text>';
