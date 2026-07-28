@@ -457,15 +457,15 @@ function renderAutumnChart(){
       var sc=SC[store]||'#999';
       var idx=wi*ns+si;
       var x=pad.left+wi*perWeekW+si*(barW*2+gap);
-      // 2025 bar (left, lighter — store color at 35% opacity)
-      var h25=yPos(p25),rh25=ch-pad.bottom-h25;
-      svg+='<rect x="'+x+'" y="'+(rh25>0?h25:ch-pad.bottom)+'" width="'+barW+'" height="'+Math.max(1,rh25)+'" fill="'+sc+'" opacity="0.35" rx="1"><title>2025 '+store+' W'+w+': '+p25.toFixed(1)+'%</title></rect>';
-      // 2026 bar (right, full color)
+      // 2026 bar (left, full color — first for easy L→R comparison)
       var h26=yPos(p26),rh26=ch-pad.bottom-h26;
-      svg+='<rect x="'+(x+barW+gap)+'" y="'+(rh26>0?h26:ch-pad.bottom)+'" width="'+barW+'" height="'+Math.max(1,rh26)+'" fill="'+sc+'" rx="1"><title>2026 '+store+' W'+w+': '+p26.toFixed(1)+'%</title></rect>';
+      svg+='<rect x="'+x+'" y="'+(rh26>0?h26:ch-pad.bottom)+'" width="'+barW+'" height="'+Math.max(1,rh26)+'" fill="'+sc+'" rx="1"><title>2026 '+store+' W'+w+': '+p26.toFixed(1)+'%</title></rect>';
       // Percentage label on 2026 bar
       var pct=Math.round(p26);
-      if(pct>=5&&rh26>0)svg+='<text class="stl" x="'+(x+barW+gap+barW/2)+'" y="'+(h26-3)+'" text-anchor="middle" font-size="9" fill="'+sc+'" font-weight="600">'+pct+'</text>';
+      if(pct>=5&&rh26>0)svg+='<text class="stl" x="'+(x+barW/2)+'" y="'+(h26-3)+'" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">'+pct+'</text>';
+      // 2025 bar (right, lighter — store color at 35% opacity)
+      var h25=yPos(p25),rh25=ch-pad.bottom-h25;
+      svg+='<rect x="'+(x+barW+gap)+'" y="'+(rh25>0?h25:ch-pad.bottom)+'" width="'+barW+'" height="'+Math.max(1,rh25)+'" fill="'+sc+'" opacity="0.35" rx="1"><title>2025 '+store+' W'+w+': '+p25.toFixed(1)+'%</title></rect>';
     });
     // Week label with date range
     var wMid=pad.left+wi*perWeekW+perWeekW/2;
@@ -479,7 +479,7 @@ function renderAutumnChart(){
   var lx=pad.left,ly=ch-pad.bottom+60;
   stores.forEach(function(store,si){
     var sc=SC[store]||'#999';
-    svg+='<rect x="'+lx+'" y="'+ly+'" width="12" height="12" fill="'+sc+'" rx="2" opacity="0.35"/><rect x="'+(lx+16)+'" y="'+ly+'" width="12" height="12" fill="'+sc+'" rx="2"/><text class="stl" x="'+(lx+31)+'" y="'+(ly+10)+'">'+store+' (浅=25 深=26)</text>';
+    svg+='<rect x="'+lx+'" y="'+ly+'" width="12" height="12" fill="'+sc+'" rx="2"/><rect x="'+(lx+16)+'" y="'+ly+'" width="12" height="12" fill="'+sc+'" rx="2" opacity="0.35"/><text class="stl" x="'+(lx+31)+'" y="'+(ly+10)+'">'+store+' (深=26 浅=25)</text>';
     lx+=store.length*11+100;
   });
   
