@@ -438,7 +438,7 @@ function renderAutumnChart(){
   if(weeks.length===0){document.getElementById('autumnSvg').innerHTML='<p style="color:var(--text3);padding:20px">所选条件下无数据</p>';return;}
   
   var nw=weeks.length,ns=stores.length;
-  var pad={top:20,right:16,bottom:80,left:50},ch=440;
+  var pad={top:20,right:16,bottom:90,left:50},ch=460;
   var barW=10,groupGap=18,gap=4;
   var perWeekW=ns*(barW*2+gap)+groupGap;
   var cw=perWeekW*nw;
@@ -446,7 +446,7 @@ function renderAutumnChart(){
   function yPos(v){return pad.top+(100-v)/100*(ch-pad.top-pad.bottom);}
   
   var svgW=Math.max(680,cw+pad.left+pad.right+80);
-  var svg='<svg width="'+svgW+'" height="'+(ch+20)+'" xmlns="http://www.w3.org/2000/svg">';
+  var svg='<svg width="'+svgW+'" height="'+(ch+40)+'" xmlns="http://www.w3.org/2000/svg">';
   for(var i=0;i<=5;i++){var v=i*20,y=yPos(v);svg+='<line x1="'+pad.left+'" y1="'+y+'" x2="'+(pad.left+cw)+'" y2="'+y+'" stroke="#e8ecf0" stroke-dasharray="3,3"/><text class="ax" x="'+(pad.left-6)+'" y="'+(y+4)+'" text-anchor="end">'+v+'%</text>';}
   
   weeks.forEach(function(w,wi){
@@ -467,11 +467,11 @@ function renderAutumnChart(){
     var wdr=WEEK_DATE_RANGE[w]||{};
     var wLabel='W'+w;
     if(wdr.from)wLabel+=' ('+wdr.from.substring(0,5)+')';
-    svg+='<text class="stl" x="'+wMid+'" y="'+(ch-pad.bottom+16)+'" text-anchor="middle" font-size="11">'+wLabel+'</text>';
+    svg+='<text class="stl" x="'+wMid+'" y="'+(ch-pad.bottom+6)+'" text-anchor="end" font-size="10" transform="rotate(-40,'+wMid+','+(ch-pad.bottom+6)+')">'+wLabel+'</text>';
   });
   
   // Store legend at bottom
-  var lx=pad.left,ly=ch-pad.bottom+40;
+  var lx=pad.left,ly=ch-pad.bottom+60;
   stores.forEach(function(store,si){
     var sc=['#D4B896','#D49A4A','#87CECB','#E08878'][si%4];
     svg+='<rect x="'+lx+'" y="'+ly+'" width="12" height="12" fill="'+sc+'" rx="2"/><text class="stl" x="'+(lx+15)+'" y="'+(ly+10)+'">'+store+'</text>';
