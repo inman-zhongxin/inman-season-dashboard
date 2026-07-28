@@ -462,7 +462,7 @@ function renderAutumnChart(){
       svg+='<rect x="'+x+'" y="'+(rh26>0?h26:ch-pad.bottom)+'" width="'+barW+'" height="'+Math.max(1,rh26)+'" fill="'+sc+'" rx="1"><title>2026 '+store+' W'+w+': '+p26.toFixed(1)+'%</title></rect>';
       // Percentage label on 2026 bar
       var pct=Math.round(p26);
-      if(pct>=5&&rh26>0)svg+='<text class="stl" x="'+(x+barW/2)+'" y="'+(h26-3)+'" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">'+pct+'</text>';
+      if(pct>=1&&rh26>0)svg+='<text class="stl" x="'+(x+barW/2)+'" y="'+(h26-3)+'" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">'+pct+'%</text>';
       // 2025 bar (right, lighter — store color at 35% opacity)
       var h25=yPos(p25),rh25=ch-pad.bottom-h25;
       svg+='<rect x="'+(x+barW+gap)+'" y="'+(rh25>0?h25:ch-pad.bottom)+'" width="'+barW+'" height="'+Math.max(1,rh25)+'" fill="'+sc+'" opacity="0.35" rx="1"><title>2025 '+store+' W'+w+': '+p25.toFixed(1)+'%</title></rect>';
