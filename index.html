@@ -305,7 +305,7 @@ function updateFilterUI(fn){
   var cap=fn.charAt(0).toUpperCase()+fn.slice(1),t=document.getElementById('dd'+cap);
   if(arr.length===all.length)t.classList.remove('dd-active');else t.classList.add('dd-active');
   var tags=document.getElementById(fn+'Tags'),h='';
-  all.forEach(function(v){var label=fn==='autumnWeek'?('W'+v):(fn.includes('Month')?(v+'月'):v);h+='<span class="tag'+(arr.indexOf(v)>=0?' on':'')+'" onclick="tagClick(\''+fn+'\','+v+')">'+label+'</span>';});
+  all.forEach(function(v){var label=fn==='autumnWeek'?('W'+v):(fn.includes('Month')?(v+'月'):v);var vq=(typeof v==='number')?v:("'"+v+"'");h+='<span class="tag'+(arr.indexOf(v)>=0?' on':'')+'" onclick="tagClick(\''+fn+'\','+vq+')">'+label+'</span>';});
   tags.innerHTML=h;
 }
 
