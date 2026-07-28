@@ -302,6 +302,8 @@ var SEASONS = ["春季", "夏季", "秋季", "冬季"];
 var ALL_WEEKS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
 var ALL_MONTHS = [1, 2, 3, 4, 5, 6, 7];
 var C = {"\u6625\u5b63": "#6DB885", "\u590f\u5b63": "#E08878", "\u79cb\u5b63": "#D49A4A", "\u51ac\u5b63": "#5D8AAD"};
+var A25 = '#D4B896';
+var A26 = '#D49A4A';
 var currentStore = '茵曼旗舰店';
 
 // ===== FILTER STATE =====
@@ -507,8 +509,8 @@ function renderAutumnChart(){
       var p25=0,p26=0;
       seasons.forEach(function(se){ var d=yoyRaw.filter(function(r){return r.s===stores[si]&&r.w===w&&r.se===se;}); if(d.length>0){p25+=d[0].p25;p26+=d[0].p26;} });
       var h25=Math.min(p25,100)/100*ph,h26=Math.min(p26,100)/100*ph;
-      if(h25>0)svg+='<rect x="'+xs+'" y="'+(pt+ph-h25).toFixed(1)+'" width="'+bw+'" height="'+h25.toFixed(1)+'" fill="'+#D4B896+'" opacity="0.5" rx="2"><title>'+stores[si]+' 2025 W'+w+': '+p25.toFixed(1)+'%</title></rect>';
-      if(h26>0)svg+='<rect x="'+(xs+bw+gap)+'" y="'+(pt+ph-h26).toFixed(1)+'" width="'+bw+'" height="'+h26.toFixed(1)+'" fill="'+#D49A4A+'" rx="2"><title>'+stores[si]+' 2026 W'+w+': '+p26.toFixed(1)+'%</title></rect>';
+      if(h25>0)svg+='<rect x="'+xs+'" y="'+(pt+ph-h25).toFixed(1)+'" width="'+bw+'" height="'+h25.toFixed(1)+'" fill="'+A25+'" opacity="0.5" rx="2"><title>'+stores[si]+' 2025 W'+w+': '+p25.toFixed(1)+'%</title></rect>';
+      if(h26>0)svg+='<rect x="'+(xs+bw+gap)+'" y="'+(pt+ph-h26).toFixed(1)+'" width="'+bw+'" height="'+h26.toFixed(1)+'" fill="'+A26+'" rx="2"><title>'+stores[si]+' 2026 W'+w+': '+p26.toFixed(1)+'%</title></rect>';
     }
   }
   
@@ -534,8 +536,8 @@ function renderAutumnChart(){
   
   // Legend
   var ly=pt+ch+20;
-  svg+='<rect x="'+pl+'" y="'+ly+'" width="12" height="12" fill="'+#D4B896+'" opacity="0.5" rx="2"/><text x="'+(pl+18)+'" y="'+(ly+11)+'" class="ax">2025</text>';
-  svg+='<rect x="'+(pl+80)+'" y="'+ly+'" width="12" height="12" fill="'+#D49A4A+'" rx="2"/><text x="'+(pl+98)+'" y="'+(ly+11)+'" class="ax">2026</text>';
+  svg+='<rect x="'+pl+'" y="'+ly+'" width="12" height="12" fill="'+A25+'" opacity="0.5" rx="2"/><text x="'+(pl+18)+'" y="'+(ly+11)+'" class="ax">2025</text>';
+  svg+='<rect x="'+(pl+80)+'" y="'+ly+'" width="12" height="12" fill="'+A26+'" rx="2"/><text x="'+(pl+98)+'" y="'+(ly+11)+'" class="ax">2026</text>';
   
   svg+='</svg>';
   document.getElementById('autumnSvg').innerHTML=svg;
