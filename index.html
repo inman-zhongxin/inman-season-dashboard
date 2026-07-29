@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>茵曼品牌 · 季节导入分析仪表盘 v13</title>
+<title>茵曼品牌 · 季节导入分析仪表盘 v14</title>
 <style>
 :root{--pri:#87CECB;--pri-dark:#5BA7A4;--bg:#f4f6f9;--card:#ffffff;--text:#2d3748;--text2:#5a6a7e;--text3:#8b9aaf;--border:#e2e8f0;--radius:10px;--font:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;--shadow:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);--shadow-hover:0 4px 12px rgba(0,0,0,0.08)}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -92,7 +92,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <div class="container">
 <div class="header">
 <h1>茵曼品牌 · 季节导入分析仪表盘</h1>
-<div class="sub">双维度 · 秋季周度追踪 · 同期对比 | v13</div>
+<div class="sub">双维度 · 秋季周度追踪 · 同期对比 | v14 <span style="margin-left:16px;font-weight:600;color:var(--pri)"> 数据更新至 2026-07-27</span></div>
 </div>
 
 <!-- ===== GLOBAL FILTERS ===== -->
@@ -209,7 +209,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 <div class="table-wrap" id="summaryTableWrap"></div>
 </div>
 
-<div class="footer">茵曼品牌 · 季节导入分析 | 双维度 · 秋季周度追踪 | v13</div>
+<div class="footer">茵曼品牌 · 季节导入分析 | 双维度 · 秋季周度追踪 | v14</div>
 </div>
 
 <script>
@@ -232,6 +232,8 @@ var SC={"茵曼旗舰店":"#5B8DEF","京东SOP店":"#5CB85C","京东自营":"#F0
 var MONTH_DATE_MAP={"1": {"from": "01-01", "to": "01-31"}, "2": {"from": "02-01", "to": "02-28"}, "3": {"from": "03-01", "to": "03-31"}, "4": {"from": "04-01", "to": "04-30"}, "5": {"from": "05-01", "to": "05-31"}, "6": {"from": "06-01", "to": "06-30"}, "7": {"from": "07-01", "to": "07-31"}, "8": {"from": "08-01", "to": "08-31"}, "9": {"from": "09-01", "to": "09-30"}, "10": {"from": "10-01", "to": "10-31"}, "11": {"from": "11-01", "to": "11-30"}, "12": {"from": "12-01", "to": "12-31"}};
 var DEFAULT_MONTHS=[1, 2, 3, 4, 5, 6, 7];
 var ALL_CATEGORIES=["(\u4eff)\u6bdb\u8863", "T\u6064", "\u4fc3\u9500\u793c\u54c1\u7c7b", "\u5176\u4ed6\u7c7b", "\u5185\u8863\u7c7b", "\u52a0\u7ed2\u6253\u5e95\u88e4\u7c7b", "\u534a\u8eab\u88d9", "\u536b\u8863", "\u536b\u8863\u88e4\u7c7b", "\u53cc\u9762\u5462\u5916\u5957\u7c7b", "\u540a\u5e26 \u80cc\u5fc3", "\u540a\u5e26\u88e4/\u88d9\u7c7b", "\u56f4\u5dfe\u7c7b", "\u5916\u5957 \u4e0a\u8863", "\u5957\u88c5", "\u5c0f\u897f\u88c5\u7c7b", "\u5e3d\u5b50\u7c7b", "\u6253\u5e95\u88e4\u7c7b", "\u62d6\u978b", "\u6742\u54c1\u7c7b", "\u68c9\u8863", "\u6bdb\u5462\u5916\u5957\u7c7b", "\u6bdb\u7ec7\u534a\u8eab\u88d9\u7c7b", "\u6bdb\u7ec7\u5957\u88c5\u7c7b", "\u6bdb\u7ec7\u62ab\u80a9\u7c7b", "\u6bdb\u7ec7\u8fde\u8863\u88d9", "\u6d17\u62a4\u7c7b", "\u725b\u4ed4\u88e4", "\u7a7a\u8c03\u886b/\u9632\u6652\u886b", "\u7f8a\u6bdb\u886b", "\u7f8a\u7ed2\u886b", "\u7f8a\u7f94\u7ed2\u5916\u5957", "\u7fbd\u7ed2\u670d", "\u80cc\u5e26\u88d9", "\u80cc\u5e26\u88e4", "\u886c\u8863", "\u88e4\u5b50", "\u8fde\u8863\u88d9", "\u914d\u9970\u7c7b", "\u9488\u7ec7\u886b", "\u9886\u5dfe/\u65b9\u5dfe", "\u98ce\u8863", "\u9a6c\u5939"];
+var DATA_MAX_DATE='2026-07-27';
+var DATA_MAX_MMDD='07-27';
 var currentStore='茵曼旗舰店';
 
 // ===== STATE =====
@@ -250,6 +252,8 @@ function getEffDaily(monthsArr,dateFrom,dateTo,catsArr){
   if(!catsArr)catsArr=ALL_CATEGORIES;
   var dfMM=(dateFrom||'2026-01-01').substring(5);
   var dtMM=(dateTo||'2026-12-31').substring(5);
+  // ★ Cap upper bound at actual data cutoff for YoY fairness
+  if(dtMM>DATA_MAX_MMDD)dtMM=DATA_MAX_MMDD;
   var r=[];
   dailyRaw.forEach(function(x){var xMM=x.d.substring(5);if(monthsArr.indexOf(x.m)>=0&&xMM>=dfMM&&xMM<=dtMM&&catsArr.indexOf(x.ca)>=0)r.push(x);});
   return r;
@@ -265,12 +269,14 @@ function dailyToMonthSeason(dd){
 
 function getEffMonthly(monthsArr,df,dt,catsArr){
   if(!catsArr)catsArr=ALL_CATEGORIES;
+  var effDTMM=(dt||'2026-12-31').substring(5);
+  if(effDTMM>DATA_MAX_MMDD)effDTMM=DATA_MAX_MMDD;
   var usePre=true&&catsArr.length===ALL_CATEGORIES.length;
   monthsArr.forEach(function(m){
     var dm=MONTH_DATE_MAP[m];
     if(!dm){usePre=false;return;}
-    var dfMM=(df||'2026-01-01').substring(5),dtMM=(dt||'2026-12-31').substring(5);
-    if(dfMM>dm.from||dtMM<dm.to)usePre=false;
+    var dfMM=(df||'2026-01-01').substring(5);
+    if(dfMM>dm.from||effDTMM<dm.to)usePre=false;
   });
   if(usePre){var r=[];monthlyRaw.forEach(function(x){if(monthsArr.indexOf(x.m)>=0)r.push(x);});return r;}
   return dailyToMonthSeason(getEffDaily(monthsArr,df,dt,catsArr));
